@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A Heartfelt Iftar Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #010409;
+            --gold: #f4c430;
+            --amber: #ffbf00;
+            --gold-glow: rgba(244, 196, 48, 0.4);
+            --glass: rgba(255, 255, 255, 0.07);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        /* Magical Background */
+        .sky { 
+            position: absolute; 
+            inset: 0; 
+            overflow: hidden; 
+            background: radial-gradient(circle at center, #0b1d3a 0%, #010409 100%);
+        }
+        #stars-layer { position: absolute; inset: -50px; transition: transform 0.1s ease-out; }
+        .star { position: absolute; background: #fff; border-radius: 50%; opacity: 0.5; }
+        
+        .moon {
+            position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 80px;
+            background: radial-gradient(circle at 30% 30%, #fff, #f4c430 80%);
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(244,196,48,0.2), inset -10px -10px 20px rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+
+        .sparkle {
+            position: absolute; width: 4px; height: 4px; background: var(--gold);
+            border-radius: 50%; pointer-events: none; z-index: 999;
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        main { position: relative; z-index: 10; width: 90%; max-width: 450px; }
+
+        section {
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .hidden { opacity: 0; pointer-events: none; transform: scale(0.9) translateY(30px) rotateX(10deg); position: absolute; }
+        .active { opacity: 1; pointer-events: all; transform: scale(1) translateY(0) rotateX(0); }
+
+        #lantern-container { cursor: pointer; position: relative; }
+        .lantern-svg { width: 140px; filter: drop-shadow(0 0 15px var(--gold-glow)); }
+        
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 28px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        input {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px; border-radius: 12px; color: white;
+            width: 100%; outline: none; transition: 0.3s;
+            text-align: center; font-size: 1.1rem;
+        }
+        input:focus { border-color: var(--gold); background: rgba(255,255,255,0.1); }
+
+        .btn {
+            background: linear-gradient(45deg, var(--gold), #ff8c00);
+            color: #000;
+            padding: 18px 32px; border-radius: 50px; border: none;
+            font-weight: 600; cursor: pointer; width: 100%;
+            transition: 0.3s;
+            text-transform: uppercase; letter-spacing: 2px;
+            box-shadow: 0 10px 20px rgba(244,196,48,0.2);
+        }
+        .btn:active { transform: scale(0.96); }
+
+        /* Modified Button Area */
+        .button-area {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+            min-height: 150px;
+        }
+
+        .btn-no { 
+            background: transparent; 
+            border: 1px solid rgba(255,255,255,0.3); 
+            color: #fff; 
+            position: relative; /* Starts in document flow */
+            z-index: 10;
+        }
+
+        #timer { display: flex; gap: 10px; margin: 25px 0; justify-content: center; }
+        .time-unit { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; min-width: 70px; border: 1px solid rgba(255,255,255,0.1); }
+        .time-unit span { display: block; color: var(--gold); font-weight: bold; font-size: 1.4rem; }
+        .time-label { font-size: 0.6rem; opacity: 0.6; }
+
+        .poetic-pass {
+            border: 1px solid var(--gold);
+            background: linear-gradient(145deg, rgba(244,196,48,0.1), rgba(0,0,0,0.9));
+            padding: 40px 20px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <audio id="bg-music" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
+
+    <div class="sky">
+        <div id="stars-layer"></div>
+        <div class="moon"></div>
+    </div>
+
+    <main>
+        <section id="intro-phase" class="active">
+            <div id="lantern-container">
+                <svg class="lantern-svg" viewBox="0 0 100 150">
+                    <path d="M40,20 L60,20 L65,40 L35,40 Z" fill="#b8860b"/>
+                    <path d="M30,40 L70,40 L65,110 L35,110 Z" fill="rgba(255, 255, 255, 0.05)" stroke="#b8860b" stroke-width="2"/>
+                    <circle id="core-glow" cx="50" cy="75" r="5" fill="#f4c430" opacity="0.5">
+                        <animate attributeName="r" values="5;18;5" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                </svg>
+            </div>
+            <p style="margin-top:30px; font-size:0.75rem; letter-spacing:4px; opacity:0.6; text-transform:uppercase;">Light the path to our gathering</p>
+        </section>
+
+        <section id="name-phase" class="hidden">
+            <div class="glass-card">
+                <h2 style="font-family:'Playfair Display'; margin-bottom:20px; font-style: italic;">"Amongst the stars, I searched for you..."</h2>
+                <input type="text" id="name-input" placeholder="Your Name">
+                <button class="btn" style="margin-top: 15px;" onclick="startStory()">Enter Majlis</button>
+            </div>
+        </section>
+
+        <section id="story-phase" class="hidden">
+            <div class="glass-card">
+                <p id="story-text" style="font-family:'Playfair Display'; font-size:1.4rem; font-style:italic; line-height:1.8;"></p>
+            </div>
+        </section>
+
+        <section id="rsvp-phase" class="hidden">
+            <div class="glass-card" id="rsvp-card">
+                <h2 style="font-family:'Playfair Display'; color:var(--gold); font-size:1.8rem;">Iftar with Friends</h2>
+                <p style="font-size:0.9rem; opacity:0.9; margin:15px 0; line-height: 1.6;">
+                    Saturday, March 7th • 5:00 PM<br>
+                    <i>Breaking bread is a meal; sharing it with you is a blessing.</i>
+                </p>
+                
+                <div id="timer">
+                    <div class="time-unit"><span id="days">00</span><div class="time-label">DAYS</div></div>
+                    <div class="time-unit"><span id="hours">00</span><div class="time-label">HRS</div></div>
+                    <div class="time-unit"><span id="mins">00</span><div class="time-label">MINS</div></div>
+                </div>
+
+                <div class="button-area">
+                    <button class="btn" onclick="confirm()">I'll be there</button>
+                    <button class="btn btn-no" id="btn-no">I cannot make it</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const starLayer = document.getElementById('stars-layer');
+        for(let i=0; i<150; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2.5;
+            star.style.width = size + 'px'; star.style.height = size + 'px';
+            star.style.top = Math.random() * 110 + '%'; star.style.left = Math.random() * 110 + '%';
+            starLayer.appendChild(star);
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            starLayer.style.transform = `translate(${(e.clientX/window.innerWidth-0.5)*40}px, ${(e.clientY/window.innerHeight-0.5)*40}px)`;
+            createSparkle(e.clientX, e.clientY);
+        });
+
+        function createSparkle(x, y) {
+            const s = document.createElement('div');
+            s.className = 'sparkle'; s.style.left = x + 'px'; s.style.top = y + 'px';
+            document.body.appendChild(s);
+            s.animate([{opacity: 1, transform: 'scale(1)'}, {opacity: 0, transform: 'scale(0) translateY(25px)'}], 1000).onfinish = () => s.remove();
+        }
+
+        let guestName = "";
+        const intro = document.getElementById('intro-phase'), namePh = document.getElementById('name-phase'), storyPh = document.getElementById('story-phase'), rsvpPh = document.getElementById('rsvp-phase');
+
+        let holdTime = 0, holdInt;
+        const lantern = document.getElementById('lantern-container');
+
+        lantern.onmousedown = lantern.ontouchstart = () => {
+            holdInt = setInterval(() => {
+                holdTime += 100;
+                document.getElementById('core-glow').setAttribute('r', 5 + (holdTime/70));
+                if(holdTime >= 1500) {
+                    clearInterval(holdInt);
+                    intro.classList.replace('active', 'hidden');
+                    namePh.classList.replace('hidden', 'active');
+                    document.getElementById('bg-music').play();
+                }
+            }, 100);
+        };
+
+        window.onmouseup = window.ontouchend = () => { clearInterval(holdInt); holdTime = 0; document.getElementById('core-glow').setAttribute('r', 5); };
+
+        function startStory() {
+            guestName = document.getElementById('name-input').value.trim() || "My Friend";
+            namePh.classList.replace('active', 'hidden');
+            storyPh.classList.replace('hidden', 'active');
+            
+            // HEARTFELT SCRIPT INTEGRATED HERE
+            const lines = [
+                `Hey ${guestName}, I hope your fasts are going beautifully.`,
+                "My Iftar table feels a little too quiet without my favorite people.",
+                "It would mean the world to me if you could join us this Saturday.",
+                "No formalities—just us, some dates, and a lot of laughter.",
+                "It wouldn't be the same without you. See you there?"
+            ];
+            
+            let i = 0;
+            const textEl = document.getElementById('story-text');
+            const interval = setInterval(() => {
+                textEl.style.opacity = 0;
+                setTimeout(() => {
+                    if(i < lines.length) {
+                        textEl.innerText = lines[i];
+                        textEl.style.opacity = 1; i++;
+                    } else {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            storyPh.classList.replace('active', 'hidden');
+                            rsvpPh.classList.replace('hidden', 'active');
+                            updateTimer();
+                        }, 1000);
+                    }
+                }, 500);
+            }, 3200);
+        }
+
+        const btnNo = document.getElementById('btn-no');
+        btnNo.onmouseover = btnNo.ontouchstart = () => {
+            // Switch to absolute positioning so it can escape the flex stack
+            btnNo.style.position = "absolute";
+            const x = (Math.random() - 0.5) * 300;
+            const y = (Math.random() - 0.5) * 200;
+            btnNo.style.transform = `translate(${x}px, ${y}px)`;
+        };
+
+        function confirm() {
+            const card = document.getElementById('rsvp-card');
+            card.innerHTML = `
+                <div class="poetic-pass">
+                    <h2 style="color:var(--gold); font-family:'Playfair Display';">See you soon!</h2>
+                    <hr style="margin:20px; border:0; border-top:1px solid var(--gold); opacity:0.3;">
+                    <h1 style="font-family:'Playfair Display'; margin:10px 0; font-size: 2rem;">${guestName}</h1>
+                    <p style="font-size:1.1rem; line-height: 1.6; font-style: italic;">
+                        My heart is full knowing you're coming.
+                    </p>
+                    <p style="margin-top:20px; color:var(--gold); font-size: 0.8rem;">Saturday, March 7th • 5:00 PM</p>
+                </div>
+            `;
+            for(let i=0; i<100; i++) setTimeout(() => createSparkle(window.innerWidth/2 + (Math.random()-0.5)*400, window.innerHeight/2 + (Math.random()-0.5)*400), i*20);
+        }
+
+        function updateTimer() {
+            const target = new Date("March 7, 2026 17:00:00").getTime();
+            setInterval(() => {
+                const diff = target - new Date().getTime();
+                if(diff < 0) return;
+                document.getElementById('days').innerText = String(Math.floor(diff / (1000*60*60*24))).padStart(2, '0');
+                document.getElementById('hours').innerText = String(Math.floor((diff % (1000*60*60*24)) / (1000*60*60))).padStart(2, '0');
+                document.getElementById('mins').innerText = String(Math.floor((diff % (1000*60*60)) / (1000*60))).padStart(2, '0');
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
