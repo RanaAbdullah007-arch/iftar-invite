@@ -152,7 +152,7 @@
 
         <section id="name-phase" class="hidden">
             <div class="glass-card">
-                <h2 style="font-family:'Playfair Display'; margin-bottom:20px; font-style: italic;">"Amongst the stars, I searched for you..."</h2>
+                <h2 style="font-family:'Playfair Display'; margin-bottom:20px; font-style: italic;">"Amongst the stars, we searched for you..."</h2>
                 <input type="text" id="name-input" placeholder="Your Name">
                 <button class="btn" style="margin-top: 15px;" onclick="startStory()">Enter Majlis</button>
             </div>
@@ -168,7 +168,7 @@
             <div class="glass-card" id="rsvp-card">
                 <h2 style="font-family:'Playfair Display'; color:var(--gold); font-size:1.8rem;">Iftar with Friends</h2>
                 <p style="font-size:0.9rem; opacity:0.9; margin:15px 0; line-height: 1.6;">
-                    Saturday, March 7th • 5:00 PM<br>
+                    Wednesday, March 4th • 5:00 PM at Ayub National Park<br>
                     <i>Breaking bread is a meal; sharing it with you is a blessing.</i>
                 </p>
                 
@@ -238,8 +238,8 @@
             // HEARTFELT SCRIPT INTEGRATED HERE
             const lines = [
                 `Hey ${guestName}, I hope your fasts are going beautifully.`,
-                "My Iftar table feels a little too quiet without my favorite people.",
-                "It would mean the world to me if you could join us this Saturday.",
+                "Our Iftar table feels a little too quiet without our favorite people.",
+                "It would mean the world to us if you could join us today.",
                 "No formalities—just us, some dates, and a lot of laughter.",
                 "It wouldn't be the same without you. See you there?"
             ];
@@ -281,9 +281,9 @@
                     <hr style="margin:20px; border:0; border-top:1px solid var(--gold); opacity:0.3;">
                     <h1 style="font-family:'Playfair Display'; margin:10px 0; font-size: 2rem;">${guestName}</h1>
                     <p style="font-size:1.1rem; line-height: 1.6; font-style: italic;">
-                        My heart is full knowing you're coming.
+                        Our heart is full knowing you're coming.
                     </p>
-                    <p style="margin-top:20px; color:var(--gold); font-size: 0.8rem;">Saturday, March 7th • 5:00 PM</p>
+                    <p style="margin-top:20px; color:var(--gold); font-size: 0.8rem;">Wednesday, March 4th • 5:00 PM</p>
                 </div>
             `;
             for(let i=0; i<100; i++) setTimeout(() => createSparkle(window.innerWidth/2 + (Math.random()-0.5)*400, window.innerHeight/2 + (Math.random()-0.5)*400), i*20);
@@ -303,3 +303,4 @@
 </body>
 
 </html>
+
